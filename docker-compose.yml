@@ -1,0 +1,16 @@
+services:
+  rag-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./chroma_db:/app/chroma_db
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      DATA_DIR: /app/data
+      CHROMA_PERSIST_DIRECTORY: /app/chroma_db
+    restart: unless-stopped
