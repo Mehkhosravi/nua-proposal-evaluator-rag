@@ -337,7 +337,10 @@ def evaluate_proposal(proposal: ProposalRequest):
         else "low"
     )
     return evaluation.model_copy(
-        update={"alignment_level": alignment_level, "sources": sources}
+        update={
+            "alignment_level": alignment_level,
+            "sources": [SourceReference.model_validate(source) for source in sources],
+        }
     )
 
 
